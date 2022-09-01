@@ -12,7 +12,7 @@ export class UsersController {
   @Get(':id')
   async listUserId(@Param('id') _id: string): Promise<User> {
     try {
-      return await this.userService.listUsers(_id);
+      return await this.userService.listUserId(_id);
     } catch (error) {
       throw new error()
     }
