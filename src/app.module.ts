@@ -1,4 +1,3 @@
-import { APP_FILTER } from '@nestjs/core';
 import { MoviesModule } from './modules/movies.module';
 import { TheatersModule } from './modules/theaters.module';
 import { SessionsModule } from './modules/sessions.module';
@@ -19,9 +18,11 @@ import { MoviesController } from './controllers/movies.controller';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
+    MongooseModule.forRoot(),
     MoviesModule,
     TheatersModule,
     SessionsModule,
