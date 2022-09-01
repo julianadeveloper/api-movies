@@ -4,9 +4,8 @@ import { Theater } from '../entity/theater-entity';
 
 export const TheaterShema = new moongose.Schema({
   id: String,
-  name: String,
-  email: String,
-  password: String,
+thaterId: String,
+location: Array,
 });
 
-export type UserDocument = Theater & mongoose.Document;
+export type ThaterDocument = Theater & mongoose.Document;
