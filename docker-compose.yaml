@@ -1,0 +1,20 @@
+version: '3.6'
+
+services:
+  movies:
+    build: .
+    entrypoint: sh ./.docker/entrypoint.sh
+    container_name: api-movies
+    ports:
+      - 3300:3300
+    restart: always
+    volumes:
+      - ./:/home/api-movies
+    tty: true
+    networks:
+      - api-movies
+
+
+networks:
+  api-movies:
+    driver: bridge
