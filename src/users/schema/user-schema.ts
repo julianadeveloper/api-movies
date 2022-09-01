@@ -4,12 +4,10 @@ import mongoose, * as moongose from 'mongoose';
 import { User } from '../entitys/user';
 
 export const UserSchema = new moongose.Schema({
-  username: String,
+  id: String,
   name: String,
   email: String,
   password: String,
 });
 
 export type UserDocument = User & mongoose.Document;
-
-export const MyUserSchema = SchemaFactory.createForClass(User)
