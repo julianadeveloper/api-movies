@@ -28,7 +28,7 @@ export class UsersController {
     }
   }
 
-  @Get('mail/:email')
+  @Get('/mail/:email')
   async listUserMail(@Param('email') email: String): Promise<User> {
     try {
       return await this.userService.listUserMail(email);
