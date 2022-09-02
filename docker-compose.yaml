@@ -11,6 +11,8 @@ services:
     volumes:
       - ./:/home/api-movies
     tty: true
+    environment: 
+      MONGODB: "mongodb://${MONGO_DEV_USER}:${MONGO_DEV_PWD}@${MONGO_DEV_HOST}:27017/julianaoliveira?authMechanism=DEFAULT&replicaSet=rs0&readPreference=secondaryPreferred&authSource=admin" 
     networks:
       - api-movies
 

@@ -4,7 +4,6 @@ import mongoose, * as moongose from 'mongoose';
 import { User } from '../entitys/user';
 
 export const UserSchema = new moongose.Schema({
-  id: String,
   name: String,
   email: String,
   password: String,
