@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TheaterShema = void 0;
 const moongose = require("mongoose");
 exports.TheaterShema = new moongose.Schema({
+    id: String,
     thaterId: String,
     location: Array,
 });

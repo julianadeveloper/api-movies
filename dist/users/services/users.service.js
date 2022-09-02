@@ -38,10 +38,10 @@ let UsersService = class UsersService {
     }
     async listUserMail(email) {
         try {
-            return await this.userModel.findOne({ user: email }, { password: 0 });
+            return await this.userModel.findOne({ email }, { password: 0 });
         }
         catch (error) {
-            new error();
+            console.log(error, 'erro');
         }
     }
 };

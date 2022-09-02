@@ -59,7 +59,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "listUserId", null);
 __decorate([
-    (0, common_1.Get)('mail/:email'),
+    (0, common_1.Get)('/mail/:email'),
     __param(0, (0, common_1.Param)('email')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

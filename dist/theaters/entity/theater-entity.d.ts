@@ -1,5 +1,6 @@
 export declare class Theater {
     constructor(Theater?: Partial<Theater>);
+    _id: string;
     theaterId: number;
     location: [
         {
