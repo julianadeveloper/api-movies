@@ -4,6 +4,5 @@ export declare class UsersController {
     private readonly userService;
     constructor(userService: UsersService);
     listUsers(usersList: User): Promise<User[]>;
-    listUserId(_id: string): Promise<User>;
-    listUserMail(email: String): Promise<User>;
+    findOne(query: any): Promise<User>;
 }

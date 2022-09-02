@@ -28,20 +28,12 @@ let UsersController = class UsersController {
             new Error();
         }
     }
-    async listUserId(_id) {
+    async findOne(query) {
         try {
-            return await this.userService.listUserId(_id);
+            return await this.userService.findOne(query);
         }
         catch (error) {
-            throw new error();
-        }
-    }
-    async listUserMail(email) {
-        try {
-            return await this.userService.listUserMail(email);
-        }
-        catch (error) {
-            throw new error();
+            throw new Error();
         }
     }
 };
@@ -52,19 +44,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "listUsers", null);
 __decorate([
-    (0, common_1.Get)('/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("/findOne"),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "listUserId", null);
-__decorate([
-    (0, common_1.Get)('/:email'),
-    __param(0, (0, common_1.Param)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "listUserMail", null);
+], UsersController.prototype, "findOne", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
