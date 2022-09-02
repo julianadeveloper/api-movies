@@ -2,14 +2,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { userSessions } from '../entitys/session-entity';
+import { Sessions } from '../entitys/session-entity';
 
 @Injectable()
 export class SessionsService {
-  constructor(@InjectModel('userSessions') private readonly sessionModel: Model<userSessions>) {}
+  constructor(@InjectModel('Sessions') private readonly sessionModel: Model<Sessions>) {}
 
 
-  async sessionUser(idSession: userSessions): Promise<userSessions>{
-    return await this.sessionModel.findOne(idSession)
+  async sessionUser(idSession: Sessions): Promise<Sessions[]>{
+    console.log(idSession)
+    return await this.sessionModel.find(idSession)
   }
 }
