@@ -2,12 +2,10 @@ import mongoose from "mongoose";
 
 export class Theater {
   constructor(Theater?: Partial<Theater>) {
-    this._id = Theater?._id;
     this.theaterId = Theater?.theaterId;
     this.location = Theater?.location;
   }
 
-  _id: string;
   theaterId: number;
   location: [
     {
