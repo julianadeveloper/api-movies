@@ -2,9 +2,13 @@
 /dist
 /node_modules
 <<<<<<< HEAD
+<<<<<<< HEAD
 .env
 =======
 /.env
+=======
+.env
+>>>>>>> feature/comments
 
 >>>>>>> feature/dbconnect
 # Logs

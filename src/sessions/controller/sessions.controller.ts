@@ -3,6 +3,10 @@ https://docs.nestjs.com/controllers#controllers
 */
 
 import { Controller } from '@nestjs/common';
+import { SessionsService } from '../services/sessions.service';
 
-@Controller()
-export class SessionsController {}
+@Controller('sessions')
+export class SessionsController {
+
+  constructor(private readonly sessionService: SessionsService){}
+}
