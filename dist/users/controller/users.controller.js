@@ -52,15 +52,15 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "listUsers", null);
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)('/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "listUserId", null);
 __decorate([
-    (0, common_1.Get)('/mail/:email'),
-    __param(0, (0, common_1.Param)('email')),
+    (0, common_1.Get)('/:email'),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
