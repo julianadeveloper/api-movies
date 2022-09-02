@@ -1,1 +1,0 @@
-{"version":3,"file":"theater-entity.js","sourceRoot":"","sources":["../../../src/theaters/entity/theater-entity.ts"],"names":[],"mappings":";;;AAEA,MAAa,OAAO;IAClB,YAAY,OAA0B;QACpC,IAAI,CAAC,SAAS,GAAG,OAAO,aAAP,OAAO,uBAAP,OAAO,CAAE,SAAS,CAAC;QACpC,IAAI,CAAC,QAAQ,GAAG,OAAO,aAAP,OAAO,uBAAP,OAAO,CAAE,QAAQ,CAAC;IACpC,CAAC;CA0BF;AA9BD,0BA8BC"}

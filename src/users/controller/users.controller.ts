@@ -14,7 +14,7 @@ export class UsersController {
   async listUsers(usersList: User): Promise<User[]> {
     try {
       return await this.userService.listUsers(usersList);
-    } catch {
+    } catch {0
       new Error();
     }
   }

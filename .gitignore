@@ -1,19 +1,8 @@
 # compiled output
 /dist
 /node_modules
-<<<<<<< HEAD
-<<<<<<< HEAD
 .env
-<<<<<<< HEAD
-=======
-/.env
-=======
-.env
->>>>>>> feature/comments
 
->>>>>>> feature/dbconnect
-=======
->>>>>>> feature/movies
 # Logs
 logs
 *.log
