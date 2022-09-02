@@ -11,7 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+<<<<<<< HEAD
 var _a, _b;
+=======
+>>>>>>> feature/movies
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentsController = void 0;
 const common_1 = require("@nestjs/common");
@@ -31,14 +34,22 @@ let CommentsController = class CommentsController {
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
+<<<<<<< HEAD
     __metadata("design:paramtypes", [typeof (_a = typeof comments_entity_1.Comments !== "undefined" && comments_entity_1.Comments) === "function" ? _a : Object]),
+=======
+    __metadata("design:paramtypes", [comments_entity_1.Comments]),
+>>>>>>> feature/movies
     __metadata("design:returntype", Promise)
 ], CommentsController.prototype, "getComments", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
+<<<<<<< HEAD
     __metadata("design:paramtypes", [typeof (_b = typeof comments_entity_1.Comments !== "undefined" && comments_entity_1.Comments) === "function" ? _b : Object]),
+=======
+    __metadata("design:paramtypes", [comments_entity_1.Comments]),
+>>>>>>> feature/movies
     __metadata("design:returntype", Promise)
 ], CommentsController.prototype, "getCommentById", null);
 CommentsController = __decorate([

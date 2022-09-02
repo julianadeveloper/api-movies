@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 .env
+<<<<<<< HEAD
 =======
 /.env
 =======
@@ -11,6 +12,8 @@
 >>>>>>> feature/comments
 
 >>>>>>> feature/dbconnect
+=======
+>>>>>>> feature/movies
 # Logs
 logs
 *.log

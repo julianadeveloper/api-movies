@@ -28,21 +28,22 @@ let UsersService = class UsersService {
             new error();
         }
     }
-    async listUserId(_id) {
-        try {
-            return await this.userModel.findById(_id, { password: 0 });
+    async findOne(query) {
+        const key = Object.keys(query);
+        if (!key.length) {
+            return new Error();
         }
-        catch (error) {
-            new error();
-        }
+        const strategies = {
+            id: (id) => this.findById(id),
+            email: (email) => this.findByEmail(email),
+        };
+        return await strategies[key[0]](query[key[0]]);
     }
-    async listUserMail(email) {
-        try {
-            return await this.userModel.findOne({ email }, { password: 0 });
-        }
-        catch (error) {
-            console.log(error, 'erro');
-        }
+    async findByEmail(email) {
+        return await this.userModel.findOne({ email });
+    }
+    async findById(id) {
+        return await this.userModel.findById(id);
     }
 };
 UsersService = __decorate([
