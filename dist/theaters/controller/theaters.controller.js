@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TheatersController = void 0;
 const common_1 = require("@nestjs/common");
@@ -30,12 +29,12 @@ let TheatersController = class TheatersController {
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof theater_entity_1.Theater !== "undefined" && theater_entity_1.Theater) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [theater_entity_1.Theater]),
     __metadata("design:returntype", Promise)
 ], TheatersController.prototype, "listTheaters", null);
 TheatersController = __decorate([
     (0, common_1.Controller)('theaters'),
-    __metadata("design:paramtypes", [typeof (_a = typeof theaters_service_1.TheatersService !== "undefined" && theaters_service_1.TheatersService) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [theaters_service_1.TheatersService])
 ], TheatersController);
 exports.TheatersController = TheatersController;
 //# sourceMappingURL=theaters.controller.js.map
