@@ -61,20 +61,24 @@ export class UsersService {
 
 
   async updateUser(id: String, userUpdate: updateUser): Promise<updateUser> {
+    if (userUpdate.password) {
+      const password = userUpdate.password;
+      bcrypt.hash(password, 10);
+    }
     try {
-      if (userUpdate.password) {
-        const password = userUpdate.password;
-        bcrypt.hash(password, 10);
-      }
-
+    
       const updated = await this.userModel
         .findByIdAndUpdate(id, userUpdate)
         .exec();
-
+      console.log(updated)
       return updated;
+  
+
     } catch (error) {
       throw new NotFoundException();
     }
+  }
+
   }
   // private async findByPhone(phone: string) {
   //   return await this.userModel.findOne({phone})
@@ -96,5 +100,4 @@ export class UsersService {
   //     console.log(error, 'erro')
   //     // new error();
   //   }
-  // }
-}
+  // 

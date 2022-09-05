@@ -2,7 +2,17 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { updateUser } from '../../auth/dto/update-user.dto';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { User } from '../entitys/user';
@@ -21,7 +31,6 @@ export class UsersController {
       new Error();
     }
   }
-  @IsPublic()
   @Get('/findOne')
   async findOne(@Query() query: any): Promise<User> {
     try {
@@ -31,7 +40,6 @@ export class UsersController {
     }
   }
 
-  @IsPublic()
   @Post()
   async createUser(@Body() user: User): Promise<User> {
     try {
@@ -41,10 +49,9 @@ export class UsersController {
     }
   }
 
-  @IsPublic()
   @Put(':id')
-  async updateUser(
-    @Query() id: string,
+  async changeUserCredentials(
+    @Param('id') id: string,
     @Body() userUpdate: updateUser,
   ) {
     try {
