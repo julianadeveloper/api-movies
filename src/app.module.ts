@@ -1,46 +1,37 @@
-import { MoviesModule } from './movies/modules/movies.module';
-import { TheatersModule } from './theaters/modules/theaters.module';
-import { SessionsModule } from './sessions/modules/sessions.module';
-import { CommentsModule } from './comments/modules/comments.module';
-import { UsersModule } from './users/modules/users.module';
-import { SessionsService } from './sessions/services/sessions.service';
-import { MoviesService } from './movies/services/movies.service';
-import { CommentsService } from './comments/services/comments.service';
-import { TheatersService } from './theaters/services/theaters.service';
-import { UsersService } from './users/services/users.service';
-import { CommentsController } from './comments/controller/comments.controller';
-import { TheatersController } from './theaters/controller/theaters.controller';
-import { UsersController } from './users/controller/users.controller';
-import { SessionsController } from './sessions/controller/sessions.controller';
-import { MoviesController } from './movies/controllers/movies.controller';
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { CommentsModule } from './comments/modules/comments.module';
+import { MoviesModule } from './movies/modules/movies.module';
+import { SessionsModule } from './sessions/modules/sessions.module';
+import { TheatersModule } from './theaters/modules/theaters.module';
+import { UsersModule } from './users/modules/users.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      process.env.MONGODB,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }), 
-      UsersModule,
-      CommentsModule,
-      TheatersModule,
-      MoviesModule,
-      SessionsModule,
-      SessionsModule
-
+    MongooseModule.forRoot(process.env.MONGODB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
+    UsersModule,
+    CommentsModule,
+    TheatersModule,
+    MoviesModule,
+    SessionsModule,
+    SessionsModule,
+    AuthModule,
   ],
-  controllers: [
-
-    AppController,
-  ],
+  controllers: [AppController],
   providers: [
-
     AppService,
-  ]
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
