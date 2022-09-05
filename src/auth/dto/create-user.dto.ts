@@ -4,6 +4,7 @@ export class createUser {
   @IsNotEmpty({ message: 'Nome de usuário obrigatório' })
   name: string;
 
+  
   @IsNotEmpty({ message: 'Email obrigatório!' })
   email: string;
 

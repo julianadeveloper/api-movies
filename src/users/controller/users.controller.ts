@@ -5,9 +5,11 @@ https://docs.nestjs.com/controllers#controllers
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
+  HttpVersionNotSupportedException,
   Param,
   Post,
   Put,
@@ -39,7 +41,7 @@ export class UsersController {
       throw new Error();
     }
   }
-
+  @IsPublic()
   @Post()
   async createUser(@Body() user: User): Promise<User> {
     try {
@@ -60,6 +62,17 @@ export class UsersController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
+
+  @Delete('/delete/')
+  async deleteUser(@Query('id') id: string){
+    try {
+      console.log(id)
+      return await this.userService.deleteUser(id);
+    } catch (error) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+  }
+
   // @Get('/:id')
   // async listUserId(@Param('id') _id: string): Promise<User> {
   //   try {
