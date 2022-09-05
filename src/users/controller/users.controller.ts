@@ -8,21 +8,20 @@ import {
   Delete,
   Get,
   HttpException,
-  HttpStatus,
-  HttpVersionNotSupportedException,
-  Param,
+  HttpStatus, Param,
   Post,
   Put,
-  Query,
+  Query
 } from '@nestjs/common';
-import { updateUser } from '../../auth/dto/update-user.dto';
-import { IsPublic } from '../../auth/decorators/is-public-decorators';
+import { updateUser } from '../../auth/dto/users/update-user.dto';
 import { User } from '../entitys/user';
 import { UsersService } from '../services/users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    private readonly userService: UsersService,
+  ) {}
 
   @Get()
   async listUsers(usersList: User): Promise<User[]> {
@@ -33,6 +32,7 @@ export class UsersController {
       new Error();
     }
   }
+
   @Get('/findOne')
   async findOne(@Query() query: any): Promise<User> {
     try {
@@ -41,7 +41,6 @@ export class UsersController {
       throw new Error();
     }
   }
-  @IsPublic()
   @Post()
   async createUser(@Body() user: User): Promise<User> {
     try {
@@ -62,11 +61,10 @@ export class UsersController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
-
   @Delete('/delete/')
-  async deleteUser(@Query('id') id: string){
+  async deleteUser(@Query('id') id: string) {
     try {
-      console.log(id)
+      console.log(id);
       return await this.userService.deleteUser(id);
     } catch (error) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);

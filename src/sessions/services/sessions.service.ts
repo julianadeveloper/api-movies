@@ -13,4 +13,8 @@ export class SessionsService {
     console.log(idSession)
     return await this.sessionModel.find(idSession)
   }
+
+  async creteSessionId( session: Object): Promise<Sessions>{
+    return await this.sessionModel.create(session)
+  }
 }
