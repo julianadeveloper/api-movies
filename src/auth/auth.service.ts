@@ -37,13 +37,15 @@ export class AuthService {
       user_id: user.email,
       jwt: this.jwtService.sign(payload),
     };
-    // const mySession = {
-    //   us
-    // }
-  (user.email == userSession.user_id) ?  this.sessionService.update(userSession) : this.sessionService.creteSessionId(userSession);
+    //     (user.email == userSession.user_id) ?  this.sessionService.update(userSession) :
+
+    const sessao = await this.sessionService.sessionOne(userSession.user_id);
+
+    if (sessao) this.sessionService.update(userSession);
+    else this.sessionService.creteSessionId(userSession);
 
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
-} 
+}
