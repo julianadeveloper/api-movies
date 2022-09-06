@@ -1,6 +1,5 @@
 
 export class SessionsEntity{
-  _id?: string;
-  user_id_: string;
+  user_id: string;
   jwt: string;
 }

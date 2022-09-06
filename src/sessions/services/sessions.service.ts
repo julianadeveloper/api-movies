@@ -16,9 +16,16 @@ export class SessionsService {
 
   async creteSessionId(session: SessionsEntity): Promise<SessionsEntity> {
     return await this.sessionModel.create(session);
+    //
   }
 
-  async update(session: SessionsEntity): Promise<SessionsEntity> {
-    return await this.sessionModel.findOneAndUpdate(session);
+  async update(session: SessionsEntity): Promise<void> {
+    await this.sessionModel.updateOne({ user_id: session.user_id }, { jwt: session.jwt });
   }
+
+  
+  async sessionOne(userId: string) {
+    return await this.sessionModel.findOne({user_id:userId});
+  }
+
 }

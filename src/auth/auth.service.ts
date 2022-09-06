@@ -1,7 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { SessionsEntity } from 'src/sessions/entitys/session-entity';
 import { SessionsService } from '../sessions/services/sessions.service';
 import { User } from '../users/entitys/user';
 import { UsersService } from '../users/services/users.service';
@@ -26,6 +25,7 @@ export class AuthService {
       'Email address or password provided is incorrect.',
     );
   }
+
   async login(user: User) {
     const payload = {
       sub: user._id,
@@ -34,12 +34,15 @@ export class AuthService {
     };
 
     const userSession = {
-      user_id_: user.email,
+      user_id: user.email,
       jwt: this.jwtService.sign(payload),
     };
-    (!userSession.user_id_)
-      ? await (this.sessionService.creteSessionId(userSession))
-      : await (this.sessionService.update(userSession))
+    //     (user.email == userSession.user_id) ?  this.sessionService.update(userSession) :
+
+    const sessao = await this.sessionService.sessionOne(userSession.user_id);
+
+    if (sessao) this.sessionService.update(userSession);
+    else this.sessionService.creteSessionId(userSession);
 
     return {
       access_token: this.jwtService.sign(payload),
