@@ -14,13 +14,13 @@ import { IsPublic } from './decorators/is-public-decorators';
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  
 
   @IsPublic()
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(@Request() req: AuthRequest) {
+    //chamar meu serviço.
     return this.authService.login(req.user);
   }
 }

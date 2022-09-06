@@ -22,9 +22,7 @@ export class UsersService {
   }
 
   async findOne(query: any) {
-    console.log(query);
     const key = Object.keys(query);
-    console.log(key, 'key1');
 
     if (!key.length) {
       return new Error();
@@ -34,7 +32,6 @@ export class UsersService {
       email: (email: string) => this.findByEmail(email),
       // phone: (phone: string) => this.findByPhone(phone)
     };
-    console.log(key, 'key2');
     return await strategies[key[0]](query[key[0]]);
   }
 

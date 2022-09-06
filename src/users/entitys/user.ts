@@ -1,14 +1,13 @@
-import { identity } from "rxjs";
 
 export interface User {
-  // constructor(User?: Partial<User>) {
-  //   this.id = User?.id
-  //   this.name = User?.name;
-  //   this.email = User?.email;
-  //   this.password = User?.password;
-  // }
-  id: string;
+  _id?: string;
   name: string;
   email: string;
   password: string;
+  _doc?: {
+    _id?: string;
+    name: string;
+    email: string;
+    password: string;
+  }
 }

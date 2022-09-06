@@ -1,9 +1,5 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
-
-import { Controller, Get, Post } from '@nestjs/common';
-import { Sessions } from '../entitys/session-entity';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { SessionsEntity } from '../entitys/session-entity';
 import { SessionsService } from '../services/sessions.service';
 
 @Controller('sessions') 
@@ -12,12 +8,13 @@ export class SessionsController {
   constructor(private readonly sessionService: SessionsService){}
 
   @Get()
-  async listSessions(user_id: Sessions): Promise<Sessions[]>{
+  async listSessions(user_id: SessionsEntity): Promise<SessionsEntity[]>{
     return await this.sessionService.sessionUser(user_id)
   }
 
   @Post()
-  async createSession( session: Object): Promise<Sessions>{
+  async createSession(@Body() session: SessionsEntity): Promise<SessionsEntity>{
+
     return await this.sessionService.creteSessionId(session);
   }
 }

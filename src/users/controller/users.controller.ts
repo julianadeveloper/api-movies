@@ -1,7 +1,3 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
-
 import {
   Body,
   Controller,
@@ -13,6 +9,7 @@ import {
   Put,
   Query
 } from '@nestjs/common';
+import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { updateUser } from '../../auth/dto/users/update-user.dto';
 import { User } from '../entitys/user';
 import { UsersService } from '../services/users.service';
@@ -41,6 +38,8 @@ export class UsersController {
       throw new Error();
     }
   }
+
+  @IsPublic()
   @Post()
   async createUser(@Body() user: User): Promise<User> {
     try {

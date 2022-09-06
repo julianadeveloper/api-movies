@@ -1,11 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { User } from 'src/users/entitys/user';
-import { UsersService } from '../users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UserPayload } from './models/user-payload';
-import { UserToken } from './models/user-token';
-import { SessionsService } from 'src/sessions/services/sessions.service';
+import { SessionsService } from '../sessions/services/sessions.service';
+import { User } from '../users/entitys/user';
+import { UsersService } from '../users/services/users.service';
 import { loginUserDto } from './dto/users/login-user.dto';
 
 @Injectable()
@@ -13,36 +11,39 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly userService: UsersService,
-    private readonly sessionService :SessionsService,
+    private readonly sessionService: SessionsService,
   ) {}
-
-  async login(user: User): Promise<UserToken> {
-    const payload: UserPayload = {
-      sub: user.id,
-      email: user.email,
-      name: user.name,
-    };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
-
   async validateUser(email: string, password: string): Promise<loginUserDto> {
-    const user = await this.userService.findOne({email});
+    const user = await this.userService.findOne({ email });
+    console.log(user);
 
-    if (user) {
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-
-      if (isPasswordValid) {
-        return {
-          ...user,
-          password: undefined,
-        };
-      }
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const { password, ...result } = user.toObject();
+      return result;
     }
-
     throw new UnauthorizedException(
       'Email address or password provided is incorrect.',
     );
   }
-}
+
+  async login(user: User) {
+    const payload = {
+      sub: user._id,
+      email: user.email,
+      name: user.name,
+    };
+
+    const userSession = {
+      user_id: user.email,
+      jwt: this.jwtService.sign(payload),
+    };
+    // const mySession = {
+    //   us
+    // }
+  (user.email == userSession.user_id) ?  this.sessionService.update(userSession) : this.sessionService.creteSessionId(userSession);
+
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
+} 
