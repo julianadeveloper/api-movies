@@ -1,6 +1,8 @@
 import * as bcrypt from 'bcrypt';
 import {
   BadRequestException,
+  HttpException,
+  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -49,15 +51,17 @@ export class UsersService {
 
   async create(user: User): Promise<User> {
     const userFound = await this.userModel.findOne({ email: user.email });
-    console.log(userFound);
     if (userFound) {
       throw new BadRequestException('Usuario ja existe.');
     }
 
     user.password = await bcrypt.hash(user.password, 10);
-
-    const userCreate = await await this.userModel.create(user);
-    return userCreate;
+    const userCreate = await this.userModel.create(user);
+    try {
+      return userCreate;
+    } catch {
+      throw new HttpException('Erro ao criar usuário', HttpStatus.FORBIDDEN);
+    }
   }
 
   async updateUser(id: String, userUpdate: updateUser): Promise<updateUser> {

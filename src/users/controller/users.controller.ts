@@ -45,7 +45,8 @@ export class UsersController {
     try {
       return await this.userService.create(user);
     } catch (error) {
-      throw new Error();
+      throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
+
     }
   }
 
@@ -60,6 +61,7 @@ export class UsersController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
+  
   @Delete('/delete/')
   async deleteUser(@Query('id') id: string) {
     try {

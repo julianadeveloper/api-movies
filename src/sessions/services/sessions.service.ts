@@ -16,7 +16,6 @@ export class SessionsService {
 
   async creteSessionId(session: SessionsEntity): Promise<SessionsEntity> {
     return await this.sessionModel.create(session);
-    //
   }
 
   async update(session: SessionsEntity): Promise<SessionsEntity> {
