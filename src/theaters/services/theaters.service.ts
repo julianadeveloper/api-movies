@@ -96,6 +96,6 @@ export class TheatersService {
   //   ];
   //   // const agg = this.theaterModel.aggregate([{data}]);
   //   // const find = await this.theaterModel.findById(id);
-  //   const agg = await this.theaterModel.aggregate()
+  //   // const agg = await (await this.theaterModel.aggregate())
   // }
 }
