@@ -36,7 +36,7 @@ export class TheatersController {
   }
   // @Get('/findDistance/')
   // async find(
-  //   @Param('latitude, longitude') logintude: Theater,
+  //   @Param(':id'), @Query(), logintude: Theater,
   //   latitude: Theater,
   // ) {
   //   return this.theatersService.buscarproximos(latitude, logintude);
