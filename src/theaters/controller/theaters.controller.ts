@@ -8,12 +8,12 @@ import {
   Param,
   Post,
   Put,
-  Query,
+  Query
 } from '@nestjs/common';
-import { TheatersService } from '../services/theaters.service';
-import { Theater } from '../entity/theater-entity';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { updateTheater } from '../dto/theater-dto';
+import { Theater } from '../entity/theater-entity';
+import { TheatersService } from '../services/theaters.service';
 @Controller('theaters')
 export class TheatersController {
   constructor(private readonly theatersService: TheatersService) {}
@@ -37,11 +37,18 @@ export class TheatersController {
 
   @Post('/findDistance')
   async findLocation(@Body() data: any): Promise<Theater[]> {
-    const result = await this.theatersService.findFieldsLocation(
-      data.latitude,
-      data.longitude,
-    );
-    return result;
+    try {
+      const result = await this.theatersService.findFieldsLocation(
+        data.latitude,
+        data.longitude,
+      );
+      return result;
+    } catch {
+      throw new HttpException(
+        'FORBIDDEN - Possivelmente não há teatro proximo',
+        HttpStatus.FORBIDDEN,
+      );
+    }
   }
 
   @IsPublic()
@@ -49,7 +56,7 @@ export class TheatersController {
   async createTheaters(@Body() teather: Theater): Promise<Theater> {
     try {
       return await this.theatersService.create(teather);
-    } catch (error) {
+    } catch {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }

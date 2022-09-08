@@ -42,21 +42,27 @@ export class TheatersService {
     latitude: number,
     longitude: number,
   ): Promise<Theater[]> {
-    const agg = await this.theaterModel.aggregate([
-      {
-        $geoNear: {
-          near: {
-            type: 'Point',
-            coordinates: [latitude, longitude],
+    try {
+      const agg = await this.theaterModel.aggregate([
+        {
+          $geoNear: {
+            near: {
+              type: 'Point',
+              coordinates: [latitude, longitude],
+            },
+            distanceField: 'Distance',
+            maxDistance: 1000,
+            spherical: true,
           },
-          distanceField: 'Distance',
-          maxDistance: 1000,
-          spherical: true,
         },
-      },
-    ]);
-    console.log(agg);
-    return agg;
+      ]).limit(5).skip(0);
+      return agg;
+    } catch {
+      throw new HttpException(
+        'FORBIDDEN - Possivelmente não há teatro proximo',
+        HttpStatus.FORBIDDEN,
+      );
+    }
   }
 
   async create(teather: Theater): Promise<Theater> {
