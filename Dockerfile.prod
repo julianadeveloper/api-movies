@@ -1,0 +1,19 @@
+FROM node:16-alpine
+
+WORKDIR /home/api-movies
+
+RUN npm install -g @nestjs/cli
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+RUN npm run start:dev
+
+ENTRYPOINT [ "npm", "start:dev" ]
+
+USER node
+
+EXPOSE 3300

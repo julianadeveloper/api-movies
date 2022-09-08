@@ -12,7 +12,7 @@ services:
       - ./:/home/api-movies
     tty: true
     environment: 
-      MONGODB: "mongodb://${MONGO_DEV_USER}:${MONGO_DEV_PWD}@${MONGO_DEV_HOST}:27017/julianaoliveira?authMechanism=DEFAULT&replicaSet=rs0&readPreference=secondaryPreferred&authSource=admin" 
+      MONGODB: "mongodb://julianaoliveira:root7532159@somngd01.cloud.dns.internal:27017,somngd02.cloud.dns.internal:27017,somngd03.cloud.dns.internal:27017/julianaoliveira?authMechanism=DEFAULT&replicaSet=rs0&readPreference=secondaryPreferred&authSource=admin" 
     networks:
       - api-movies
 
