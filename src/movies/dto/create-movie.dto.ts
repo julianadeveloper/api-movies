@@ -1,10 +1,13 @@
-export class Movies {
+import { IsNotEmpty } from "class-validator";
+
+export class createMoviesDto {
   plot: string;
   genres: [string];
   runtime: number;
   cast: [string];
   poster: string;
   title: string;
+
   fullplot: string;
   languages: [string];
   released: string;

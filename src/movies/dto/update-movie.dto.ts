@@ -1,10 +1,12 @@
-export class Movies {
+
+export class updateMoviesDto {
   plot: string;
   genres: [string];
   runtime: number;
   cast: [string];
   poster: string;
   title: string;
+
   fullplot: string;
   languages: [string];
   released: string;
@@ -48,6 +50,4 @@ export class Movies {
   lastupdate: string;
   website: string;
   writers: [string];
-
-
 }
