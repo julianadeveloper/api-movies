@@ -13,7 +13,9 @@ import { LocalStrategy } from './strategy/local.strategy';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Sessions', schema: userSessionSchema }]),
+    MongooseModule.forFeature([
+      { name: 'Sessions', schema: userSessionSchema },
+    ]),
     UsersModule,
     PassportModule,
     JwtModule.register({
