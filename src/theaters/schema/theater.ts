@@ -1,8 +1,6 @@
 /* eslint-disable prettier/prettier */
 import mongoose, * as moongose from 'mongoose';
-import { Theater } from '../entity/theater-entity';
-
-export const TheaterShema = new moongose.Schema({
+export const TheaterSchema = new mongoose.Schema({
   theaterId: Number,
   location: {
     address: {
@@ -25,4 +23,3 @@ export const TheaterShema = new moongose.Schema({
   },
 });
 
-export type ThaterDocument = Theater & mongoose.Document;

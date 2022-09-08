@@ -5,10 +5,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Aggregate, Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { updateTheater } from '../dto/theater-dto';
 import { Theater } from '../entity/theater-entity';
-import { TheaterShema } from '../schema/theater';
 
 @Injectable()
 export class TheatersService {
@@ -30,23 +29,34 @@ export class TheatersService {
     }
     const strategies = {
       id: (id: string) => this.findById(id),
-      // email: (location: any) => this.findByLocation(location),
-      // phone: (phone: string) => this.findByPhone(phone)
     };
     return await strategies[key[0]](query[key[0]]);
-    // return await strategies[(key[0], key2[1])](query[key[0]], key2[1]);
   }
-  //implementar a rota que busque pela localização - range
-  private async findByLocation(location: string) {
-    try {
-      return await this.theaterModel.find({ location });
-    } catch (error) {
-      throw new Error();
-    }
-  }
-
   private async findById(id: string) {
     return await this.theaterModel.findById(id);
+  }
+  //implementar a rota que busque pela localização - range
+
+  ///**Metodo Capturar campos */
+  async findFieldsLocation(
+    latitude: number,
+    longitude: number,
+  ): Promise<Theater[]> {
+    const agg = await this.theaterModel.aggregate([
+      {
+        $geoNear: {
+          near: {
+            type: 'Point',
+            coordinates: [latitude, longitude],
+          },
+          distanceField: 'Distance',
+          maxDistance: 1000,
+          spherical: true,
+        },
+      },
+    ]);
+    console.log(agg);
+    return agg;
   }
 
   async create(teather: Theater): Promise<Theater> {

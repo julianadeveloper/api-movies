@@ -34,16 +34,19 @@ export class TheatersController {
       throw new Error();
     }
   }
-  // @Get('/findDistance/')
-  // async find(
-  //   @Param(':id'), @Query(), logintude: Theater,
-  //   latitude: Theater,
-  // ) {
-  //   return this.theatersService.buscarproximos(latitude, logintude);
-  // }
+
+  @Post('/findDistance')
+  async findLocation(@Body() data: any): Promise<Theater[]> {
+    const result = await this.theatersService.findFieldsLocation(
+      data.latitude,
+      data.longitude,
+    );
+    return result;
+  }
+
   @IsPublic()
   @Post()
-  async createUser(@Body() teather: Theater): Promise<Theater> {
+  async createTheaters(@Body() teather: Theater): Promise<Theater> {
     try {
       return await this.theatersService.create(teather);
     } catch (error) {
@@ -52,7 +55,7 @@ export class TheatersController {
   }
 
   @Put(':id')
-  async changeUserCredentials(
+  async updateTheaters(
     @Param('id') id: string,
     @Body() bodyTheater: updateTheater,
   ) {
@@ -64,7 +67,7 @@ export class TheatersController {
   }
 
   @Delete('/:id')
-  async deleteUser(@Param('id') id: string) {
+  async deleteTheaters(@Param('id') id: string) {
     try {
       console.log(id);
       return await this.theatersService.deleteTheater(id);

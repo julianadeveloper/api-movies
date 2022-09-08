@@ -1,15 +1,15 @@
-
 export class updateTheater {
   
   theaterId: number;
-  location: [
+  location: 
     {
       adress: {
         street1: string;
         city: string;
         state: string;
         zipcode:string;
-      };
+      },
+
       geo: {
         type:
         {
@@ -17,12 +17,12 @@ export class updateTheater {
 
         enum: ['Point'],
         required: true;
-        },
-        coordinates: {
-          type: [Number];
-          required:true
         }
-      };
-    },
-  ];
+      },
+      coordinates: {
+        type: [Number];
+        required:true
+      }
+    }
+
 }
