@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, NullExpression } from 'mongoose';
 import { createMoviesDto } from '../dto/create-movie.dto';
 import { updateMoviesDto } from '../dto/update-movie.dto';
 import { Movies } from '../entitys/movies-entity';

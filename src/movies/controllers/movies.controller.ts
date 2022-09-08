@@ -1,10 +1,13 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
-  HttpStatus, Post,
-  Query
+  HttpStatus,
+  Param,
+  Post,
+  Query,
 } from '@nestjs/common';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { createMoviesDto } from '../dto/create-movie.dto';
@@ -23,10 +26,10 @@ export class MoviesController {
   @Get('/id')
   async findOne(@Query('id') id: string): Promise<Movies> {
     try {
-      return await this.moviesSevice.findByMovieId(id);
-    } catch (error) {
-      console.log(error);
-      throw new Error();
+      const findOne = await this.moviesSevice.findByMovieId(id);
+      return findOne;
+    } catch {
+      throw new HttpException('NOT FOUND', HttpStatus.NOT_FOUND);
     }
   }
 
@@ -35,9 +38,18 @@ export class MoviesController {
   async createMovies(@Body() movie: createMoviesDto) {
     try {
       return await this.moviesSevice.createMovie(movie);
-    } catch (error) {
-      console.log(error);
+    } catch {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
+    }
+  }
+
+  @Delete('/:id')
+  async deleteMovie(@Param('id') id: string) {
+    const deleted = await this.moviesSevice.deletemovies(id);
+    try {
+      return deleted;
+    } catch {
+      throw new HttpException('NOT_DELETED', HttpStatus.NOT_FOUND);
     }
   }
 }
