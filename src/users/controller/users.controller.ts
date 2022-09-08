@@ -74,21 +74,4 @@ export class UsersController {
     }
   }
 
-  // @Get('/:id')
-  // async listUserId(@Param('id') _id: string): Promise<User> {
-  //   try {
-  //     return await this.userService.listUserId(_id);
-  //   } catch (error) {
-  //     throw new error();
-  //   }
-  // }
-
-  // @Get('/:email')
-  // async listUserMail(@Param() email: String): Promise<User> {
-  //   try {
-  //     return await this.userService.listUserMail(email);
-  //   } catch (error) {
-  //     throw new error();
-  //   }
-  // }
 }
