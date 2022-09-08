@@ -9,12 +9,15 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { createMoviesDto } from '../dto/create-movie.dto';
 import { Movies } from '../entitys/movies-entity';
 import { MoviesService } from '../services/movies.service';
 
-@Controller('movies')
+@ApiBearerAuth('JWT-auth')
+@ApiTags('Movies')
+@Controller('Movies')
 export class MoviesController {
   constructor(private readonly moviesSevice: MoviesService) {}
 

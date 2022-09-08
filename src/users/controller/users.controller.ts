@@ -9,11 +9,13 @@ import {
   Put,
   Query
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { updateUser } from '../../auth/dto/users/update-user.dto';
 import { User } from '../entitys/user';
 import { UsersService } from '../services/users.service';
-
+@ApiBearerAuth('JWT-auth')
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(

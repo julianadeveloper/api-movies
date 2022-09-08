@@ -10,10 +10,23 @@ import {
   Put,
   Query
 } from '@nestjs/common';
+<<<<<<< Updated upstream
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { updateTheater } from '../dto/theater-dto';
 import { Theater } from '../entity/theater-entity';
 import { TheatersService } from '../services/theaters.service';
+=======
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { IsPublic } from '../../auth/decorators/is-public-decorators';
+import { DeleteTheater } from '../api-doc/delete-dto';
+import { TheaterDistance } from '../api-doc/find-distace';
+import { updateTheater } from '../dto/theater-dto';
+import { Theater } from '../entity/theater-entity';
+import { TheatersService } from '../services/theaters.service';
+
+@ApiBearerAuth('JWT-auth')
+@ApiTags('Theaters')
+>>>>>>> Stashed changes
 @Controller('theaters')
 export class TheatersController {
   constructor(private readonly theatersService: TheatersService) {}
@@ -34,7 +47,11 @@ export class TheatersController {
       throw new Error();
     }
   }
+<<<<<<< Updated upstream
 
+=======
+  @ApiBody({ type: TheaterDistance })
+>>>>>>> Stashed changes
   @Post('/findDistance')
   async findLocation(@Body() data: any): Promise<Theater[]> {
     try {
@@ -72,7 +89,11 @@ export class TheatersController {
       throw new HttpException('FORBIDDEN', HttpStatus.NOT_FOUND);
     }
   }
+<<<<<<< Updated upstream
 
+=======
+  @ApiBody({type: DeleteTheater})
+>>>>>>> Stashed changes
   @Delete('/:id')
   async deleteTheaters(@Param('id') id: string) {
     try {

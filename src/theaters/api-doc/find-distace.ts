@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class loginUserDto {
+export class TheaterDistance {
   @ApiProperty()
-  email: string;
+  latitude: number;
   @ApiProperty()
-  password: string;
+  longitude: number;
 }

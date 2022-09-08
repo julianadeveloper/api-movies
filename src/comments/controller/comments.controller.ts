@@ -10,12 +10,14 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { CommentsDtoCreate } from '../dto/comment-create-dto';
 import { CommentsDtoUpdate } from '../dto/comment-dto';
 import { Comments } from '../entitys/comments-entity';
 import { CommentsService } from '../services/comments.service';
-
+@ApiTags('Commments')
+@ApiBearerAuth('JWT-auth')
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
