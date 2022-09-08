@@ -27,14 +27,20 @@ export class TheatersController {
     }
   }
   @Get('/findTheater')
-  async findOne(@Query() query: any, query2: any): Promise<Theater> {
+  async findOne(@Query() query: any): Promise<Theater> {
     try {
-      return await this.theatersService.findOne(query, query2);
+      return await this.theatersService.findOne(query);
     } catch (error) {
       throw new Error();
     }
   }
-
+  // @Get('/findDistance/')
+  // async find(
+  //   @Param('latitude, longitude') logintude: Theater,
+  //   latitude: Theater,
+  // ) {
+  //   return this.theatersService.buscarproximos(latitude, logintude);
+  // }
   @IsPublic()
   @Post()
   async createUser(@Body() teather: Theater): Promise<Theater> {

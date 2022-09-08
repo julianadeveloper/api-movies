@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 
 export class Theater {
   constructor(Theater?: Partial<Theater>) {

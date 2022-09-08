@@ -5,9 +5,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Aggregate, Model } from 'mongoose';
 import { updateTheater } from '../dto/theater-dto';
 import { Theater } from '../entity/theater-entity';
+import { TheaterShema } from '../schema/theater';
 
 @Injectable()
 export class TheatersService {
@@ -22,14 +23,14 @@ export class TheatersService {
       new error();
     }
   }
-  async findOne(query: any, query2: any) {
+  async findOne(query: any) {
     const key = Object.keys(query);
     if (!key.length) {
       return new Error();
     }
     const strategies = {
       id: (id: string) => this.findById(id),
-      email: (location: any) => this.findByLocation(location),
+      // email: (location: any) => this.findByLocation(location),
       // phone: (phone: string) => this.findByPhone(phone)
     };
     return await strategies[key[0]](query[key[0]]);
@@ -78,4 +79,23 @@ export class TheatersService {
       throw new NotFoundException(error);
     }
   }
+  // async buscarproximos(logintude: Theater, latitude: Theater) {
+  //   const obj = [
+  //     {
+  //       $geoNear: {
+  //         near: {
+  //           coordinates: [logintude, latitude],
+  //           type: 'Point',
+  //         },
+  //         distanceField: 'distance.theaters',
+  //         minDistance: 0,
+  //         maxDistance: 1000,
+  //         spherical: true,
+  //       },
+  //     },
+  //   ];
+  //   // const agg = this.theaterModel.aggregate([{data}]);
+  //   // const find = await this.theaterModel.findById(id);
+  //   const agg = await this.theaterModel.aggregate(obj, ()=>{console.log(obj)});
+  // }
 }
