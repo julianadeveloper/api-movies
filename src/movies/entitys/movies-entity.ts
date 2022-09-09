@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class Movies {
-  @ApiProperty({example: "User ID", description: "Inserir o ID desejado para a requisição"})
+  @ApiProperty({example: "Movie ID", description: "Inserir o ID desejado para a requisição"})
   _id?: string;
   plot: string;
   genres: [string];

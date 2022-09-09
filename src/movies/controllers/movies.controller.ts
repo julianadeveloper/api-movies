@@ -22,7 +22,7 @@ import { MoviesService } from '../services/movies.service';
 export class MoviesController {
   constructor(private readonly moviesSevice: MoviesService) {}
 
-  @ApiBody({ type: [Movies], description: "Array de filmes listando os 20 primeiros filmes" })
+  @ApiBody({ type: [Movies] })
   @Get()
   async getAllMovies(movies: Movies): Promise<Movies[]> {
     return await this.moviesSevice.getMovies(movies);
