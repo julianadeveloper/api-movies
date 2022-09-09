@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  app: 
+    image: juhdeveloper/api-movies:1.0.0
+    ports:
+      - 3300:3300
+    container_name: compose-flixtallosapi
+    environment:
+      MONGODB: mongodb://julianaoliveira:root7532159@somngd01.cloud.dns.internal:27017,somngd02.cloud.dns.internal:27017,somngd03.cloud.dns.internal:27017/julianaoliveira?authMechanism=DEFAULT&replicaSet=rs0&readPreference=secondaryPreferred&authSource=admin
+      JWT_SECRET: umachavealetoriaqueninguemvaisonharqueexiste
+    networks:
+      - compose-flixtallosapi
+networks:
+  compose-flixtallosapi:

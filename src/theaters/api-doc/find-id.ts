@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-export class updateTheater {
-  @ApiProperty({example: "Dados com endereço e coordenadas", description: "Propriedades para atualizar"})
+
+export class findTheater {
+  @ApiProperty()
+  _id?: string;
+  theaterId: number;
   location: {
     adress: {
       street1: string;
@@ -8,6 +11,7 @@ export class updateTheater {
       state: string;
       zipcode: string;
     };
+
     geo: {
       type: {
         type: [String];

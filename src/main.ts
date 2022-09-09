@@ -6,18 +6,14 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
   const config = new DocumentBuilder()
     .setTitle('MOVIES API')
     .setDescription('Essa API utiliza o MONGODB como base de dados de Filmes.')
     .setVersion('1.0')
+    .addTag('Auth')
+    .addTag('Users')
     .addTag('Movies')
     .addTag('Theaters')
-    .addTag('Users')
-    .addTag('Auth')
     .addTag('Comments')
     .addTag('Sessions')
     .addBearerAuth(
@@ -39,5 +35,5 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   await app.listen(3300);
 }
-}
+
 bootstrap();

@@ -8,10 +8,12 @@ import {
   Param,
   Post,
   Put,
-  Query,
+  Query
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
+import { deleteComment } from '../api/delete';
+import { findComment } from '../api/find';
 import { CommentsDtoCreate } from '../dto/comment-create-dto';
 import { CommentsDtoUpdate } from '../dto/comment-dto';
 import { Comments } from '../entitys/comments-entity';
@@ -21,11 +23,13 @@ import { CommentsService } from '../services/comments.service';
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
-
+  @ApiBody({ type: Comments })
   @Get()
   async getComments(comments: Comments): Promise<Comments[]> {
     return await this.commentsService.getComments(comments);
   }
+
+  @ApiBody({ type: findComment })
   @Get('/comments')
   async findOne(@Query() query: string): Promise<Comments> {
     try {
@@ -36,6 +40,7 @@ export class CommentsController {
   }
 
   @IsPublic()
+  @ApiBody({ type: CommentsDtoCreate })
   @Post()
   async createComments(@Body() comments: Comments): Promise<CommentsDtoCreate> {
     try {
@@ -44,7 +49,7 @@ export class CommentsController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
-
+  @ApiBody({ type: CommentsDtoUpdate })
   @Put(':id')
   async changecommentsCredentials(
     @Param('id') id: string,
@@ -56,7 +61,7 @@ export class CommentsController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
-
+  @ApiBody({ type: deleteComment })
   @Delete('/delete')
   async deletecomments(@Query('id') id: string) {
     try {

@@ -1,6 +1,9 @@
-export class Theater {
-  theaterId: number;
+import { ApiProperty } from "@nestjs/swagger";
 
+export class Theater {
+  @ApiProperty()
+  theaterId: number;
+  @ApiProperty()
   location: {
     adress: {
       street1: string;

@@ -10,9 +10,9 @@ RUN npm install
 
 COPY . .
 
-RUN npm run start:dev
+RUN npm run build
 
-ENTRYPOINT [ "npm", "start:dev" ]
+ENTRYPOINT [ "npm", "run", "start" ]
 
 USER node
 

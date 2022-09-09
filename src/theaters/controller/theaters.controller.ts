@@ -12,8 +12,9 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
-import { DeleteTheater } from '../api-doc/delete-dto';
+import { DeleteTheater } from '../api-doc/delete';
 import { TheaterDistance } from '../api-doc/find-distace';
+import { findTheater } from '../api-doc/find-id';
 import { updateTheater } from '../dto/theater-dto';
 import { Theater } from '../entity/theater-entity';
 import { TheatersService } from '../services/theaters.service';
@@ -24,6 +25,7 @@ import { TheatersService } from '../services/theaters.service';
 export class TheatersController {
   constructor(private readonly theatersService: TheatersService) {}
 
+  @ApiBody({type: [Theater]})
   @Get()
   async listTheaters(thetater: Theater): Promise<Theater[]> {
     try {
@@ -32,6 +34,7 @@ export class TheatersController {
       new Error();
     }
   }
+  @ApiBody({type: findTheater})
   @Get('/findTheater')
   async findOne(@Query() query: any): Promise<Theater> {
     try {
@@ -58,6 +61,7 @@ export class TheatersController {
   }
 
   @IsPublic()
+@ApiBody({type: Theater})
   @Post()
   async createTheaters(@Body() teather: Theater): Promise<Theater> {
     try {
@@ -66,7 +70,7 @@ export class TheatersController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
-
+@ApiBody({type: updateTheater})
   @Put(':id')
   async updateTheaters(
     @Param('id') id: string,

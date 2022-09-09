@@ -9,8 +9,9 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
+import { MoviesCreateApi } from '../api/create-swagger';
 import { createMoviesDto } from '../dto/create-movie.dto';
 import { Movies } from '../entitys/movies-entity';
 import { MoviesService } from '../services/movies.service';
@@ -21,11 +22,12 @@ import { MoviesService } from '../services/movies.service';
 export class MoviesController {
   constructor(private readonly moviesSevice: MoviesService) {}
 
+  @ApiBody({ type: [Movies], description: "Array de filmes listando os 20 primeiros filmes" })
   @Get()
   async getAllMovies(movies: Movies): Promise<Movies[]> {
     return await this.moviesSevice.getMovies(movies);
   }
-
+  @ApiBody({ type: Movies })
   @Get('/id')
   async findOne(@Query('id') id: string): Promise<Movies> {
     try {
@@ -37,6 +39,7 @@ export class MoviesController {
   }
 
   @IsPublic()
+  @ApiBody({ type: MoviesCreateApi })
   @Post()
   async createMovies(@Body() movie: createMoviesDto) {
     try {
@@ -45,7 +48,7 @@ export class MoviesController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
-
+  @ApiBody({ type: Movies })
   @Delete('/:id')
   async deleteMovie(@Param('id') id: string) {
     const deleted = await this.moviesSevice.deletemovies(id);
