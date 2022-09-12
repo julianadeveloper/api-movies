@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class findComment {
-  @ApiProperty()
+  @ApiProperty({example: "Movie_id ou Id do comentário"})
   id?: string;
-  @ApiProperty()
-  movie_id: string;
 }

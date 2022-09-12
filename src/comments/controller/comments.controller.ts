@@ -29,7 +29,6 @@ export class CommentsController {
     return await this.commentsService.getComments(comments);
   }
 
-  @ApiQuery({ type: findComment })
   @Get('/search')
   async findOne(@Query() query: string): Promise<Comments> {
     try {
