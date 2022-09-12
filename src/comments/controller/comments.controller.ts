@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
-import { deleteComment } from '../api/delete';
-import { findComment } from '../api/find';
+import { deleteComment } from '../api-doc/delete';
+import { findComment } from '../api-doc/find';
 import { CommentsDtoCreate } from '../dto/comment-create-dto';
 import { CommentsDtoUpdate } from '../dto/comment-dto';
 import { Comments } from '../entitys/comments-entity';
@@ -30,7 +30,7 @@ export class CommentsController {
   }
 
   @ApiBody({ type: findComment })
-  @Get('/comments')
+  @Get('/find')
   async findOne(@Query() query: string): Promise<Comments> {
     try {
       return await this.commentsService.findOne(query);

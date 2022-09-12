@@ -13,10 +13,10 @@ import { ApiBearerAuth, ApiBody, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { createUser } from '../../auth/dto/users/create-user.dto';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { updateUser } from '../../auth/dto/users/update-user.dto';
-import { findUser } from '../api/find-user';
+import { findUser } from '../api-doc/find-user';
 import { User } from '../entitys/user';
 import { UsersService } from '../services/users.service';
-import { deleteUser } from '../api/delete-user';
+import { deleteUser } from '../api-doc/delete-user';
 @ApiBearerAuth('JWT-auth')
 @ApiTags('Users')
 @Controller('users')

@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
-import { MoviesCreateApi } from '../api/create-swagger';
+import { MoviesCreateApi } from '../api-doc/create-swagger';
 import { createMoviesDto } from '../dto/create-movie.dto';
 import { Movies } from '../entitys/movies-entity';
 import { MoviesService } from '../services/movies.service';
