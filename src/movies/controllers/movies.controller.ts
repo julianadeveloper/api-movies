@@ -7,12 +7,14 @@ import {
   HttpStatus,
   Param,
   Post,
-  Query,
+  Put,
+  Query
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { MoviesCreateApi } from '../api-doc/create-swagger';
 import { createMoviesDto } from '../dto/create-movie.dto';
+import { updateMoviesDto } from '../dto/update-movie.dto';
 import { Movies } from '../entitys/movies-entity';
 import { MoviesService } from '../services/movies.service';
 
@@ -22,12 +24,12 @@ import { MoviesService } from '../services/movies.service';
 export class MoviesController {
   constructor(private readonly moviesSevice: MoviesService) {}
 
-  @ApiBody({ type: [Movies] })
+  // @ApiBody({type: ApiBody})
   @Get()
   async getAllMovies(movies: Movies): Promise<Movies[]> {
     return await this.moviesSevice.getMovies(movies);
   }
-  @ApiBody({ type: Movies })
+  @ApiQuery({ type: Movies })
   @Get('/id')
   async findOne(@Query('id') id: string): Promise<Movies> {
     try {
@@ -45,6 +47,18 @@ export class MoviesController {
     try {
       return await this.moviesSevice.createMovie(movie);
     } catch {
+      throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
+    }
+  }
+  @ApiBody({type: updateMoviesDto})
+  @Put(':id')
+  async changecommentsCredentials(
+    @Param('id') id: string,
+    @Body() moviesUpdate: updateMoviesDto,
+  ) {
+    try {
+      return await this.moviesSevice.updateMovies(id, moviesUpdate);
+    } catch (error) {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }

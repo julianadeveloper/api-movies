@@ -9,7 +9,7 @@ import {
   Put,
   Query
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiProperty, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { createUser } from '../../auth/dto/users/create-user.dto';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { updateUser } from '../../auth/dto/users/update-user.dto';
@@ -24,7 +24,7 @@ export class UsersController {
   constructor(
     private readonly userService: UsersService,
   ) {}
-  @ApiBody({type: [User]})
+  
   @Get()
   async listUsers(usersList: User): Promise<User[]> {
     try {
@@ -34,7 +34,7 @@ export class UsersController {
       new Error();
     }
   }
-@ApiBody({type: findUser})
+@ApiQuery({type: findUser})
   @Get('/findOne')
   async findOne(@Query() query: any): Promise<User> {
     try {

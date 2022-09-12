@@ -1,5 +1,7 @@
+import { ApiProperty } from "@nestjs/swagger";
 
 export class updateMoviesDto {
+  @ApiProperty()
   plot: string;
   genres: [string];
   runtime: number;

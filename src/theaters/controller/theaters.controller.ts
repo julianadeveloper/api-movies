@@ -10,7 +10,7 @@ import {
   Put,
   Query
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { DeleteTheater } from '../api-doc/delete';
 import { TheaterDistance } from '../api-doc/find-distace';
@@ -25,7 +25,7 @@ import { TheatersService } from '../services/theaters.service';
 export class TheatersController {
   constructor(private readonly theatersService: TheatersService) {}
 
-  @ApiBody({type: [Theater]})
+  // @ApiBody({type: [Theater]})
   @Get()
   async listTheaters(thetater: Theater): Promise<Theater[]> {
     try {
@@ -34,7 +34,7 @@ export class TheatersController {
       new Error();
     }
   }
-  @ApiBody({type: findTheater})
+  @ApiQuery({type: findTheater})
   @Get('/findTheater')
   async findOne(@Query() query: any): Promise<Theater> {
     try {
@@ -43,7 +43,7 @@ export class TheatersController {
       throw new Error();
     }
   }
-  @ApiBody({ type: TheaterDistance })
+  @ApiQuery({ type: TheaterDistance })
   @Post('/findDistance')
   async findLocation(@Body() data: any): Promise<Theater[]> {
     try {

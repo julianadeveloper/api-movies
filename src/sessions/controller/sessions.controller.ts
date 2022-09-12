@@ -9,7 +9,7 @@ import { SessionsService } from '../services/sessions.service';
 @Controller('sessions')
 export class SessionsController {
   constructor(private readonly sessionService: SessionsService) {}
-@ApiBody({type: SessionsEntity})
+// @ApiBody({type: SessionsEntity})
   @Get()
   async listSessions(user_id: SessionsEntity): Promise<SessionsEntity[]> {
     return await this.sessionService.sessionUser(user_id);
