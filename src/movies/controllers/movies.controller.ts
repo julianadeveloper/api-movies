@@ -30,7 +30,7 @@ export class MoviesController {
     return await this.moviesSevice.getMovies(movies);
   }
   @ApiQuery({ type: Movies })
-  @Get('/id')
+  @Get('/:id')
   async findOne(@Query('id') id: string): Promise<Movies> {
     try {
       const findOne = await this.moviesSevice.findByMovieId(id);

@@ -35,7 +35,7 @@ export class UsersController {
     }
   }
 @ApiQuery({type: findUser})
-  @Get('/findOne')
+  @Get('/search')
   async findOne(@Query() query: any): Promise<User> {
     try {
       return await this.userService.findOne(query);
@@ -68,7 +68,7 @@ export class UsersController {
     }
   }
   @ApiProperty({type: deleteUser})
-  @Delete('/delete/')
+  @Delete('/:id')
   async deleteUser(@Query('id') id: string) {
     try {
       console.log(id);

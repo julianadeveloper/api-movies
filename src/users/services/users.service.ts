@@ -65,9 +65,9 @@ export class UsersService {
   }
 
   async updateUser(id: String, userUpdate: updateUser): Promise<updateUser> {
-    if (userUpdate.password) {
-      const password = userUpdate.password;
-      bcrypt.hash(password, 10);
+    const password = userUpdate.password;
+    if (password) {
+     userUpdate.password = await bcrypt.hash(password, 10);
     }
     try {
       const updated = await this.userModel

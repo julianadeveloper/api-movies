@@ -35,7 +35,7 @@ export class TheatersController {
     }
   }
   @ApiQuery({type: findTheater})
-  @Get('/findTheater')
+  @Get('/:id')
   async findOne(@Query() query: any): Promise<Theater> {
     try {
       return await this.theatersService.findOne(query);
@@ -44,7 +44,7 @@ export class TheatersController {
     }
   }
   @ApiQuery({ type: TheaterDistance })
-  @Post('/findDistance')
+  @Post('/distance')
   async findLocation(@Body() data: any): Promise<Theater[]> {
     try {
       const result = await this.theatersService.findFieldsLocation(

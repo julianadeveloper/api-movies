@@ -10,29 +10,27 @@ import {
   Put,
   Query
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { deleteComment } from '../api-doc/delete';
 import { findComment } from '../api-doc/find';
-import { CommentsGet } from '../api-doc/get';
 import { CommentsDtoCreate } from '../dto/comment-create-dto';
 import { CommentsDtoUpdate } from '../dto/comment-dto';
 import { Comments } from '../entitys/comments-entity';
 import { CommentsService } from '../services/comments.service';
-@ApiTags('Commments')
+@ApiTags('Comments')
 @ApiBearerAuth('JWT-auth')
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
-  // @ApiBody({ type: CommentsGet })
   @Get()
   async getComments(comments: Comments): Promise<Comments[]> {
     return await this.commentsService.getComments(comments);
   }
 
   @ApiQuery({ type: findComment })
-  @Get('/find')
+  @Get('/search')
   async findOne(@Query() query: string): Promise<Comments> {
     try {
       return await this.commentsService.findOne(query);
@@ -63,9 +61,9 @@ export class CommentsController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
-  @ApiBody({ type: deleteComment })
-  @Delete('/delete')
-  async deletecomments(@Query('id') id: string) {
+  @ApiQuery({ type: deleteComment })
+  @Delete('/:id')
+  async deletecomments(@Query() id: string) {
     try {
       return await this.commentsService.deleteComments(id);
     } catch (error) {
