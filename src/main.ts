@@ -16,6 +16,8 @@ async function bootstrap() {
     .addTag('Theaters')
     .addTag('Comments')
     .addTag('Sessions')
+    .addServer('/api/v1/')
+    .addServer('/')
     .addBearerAuth(
       {
         type: 'http',
@@ -28,7 +30,6 @@ async function bootstrap() {
       'JWT-auth',
     )
     .build();
-
   app.enableCors();
 
   const document = SwaggerModule.createDocument(app, config);
