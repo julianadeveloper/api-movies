@@ -24,12 +24,14 @@ import { CommentsService } from '../services/comments.service';
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
+  @IsPublic()
   @Get()
   async getComments(comments: Comments): Promise<Comments[]> {
     return await this.commentsService.getComments(comments);
   }
 
   @ApiQuery({ type: findComment })
+  @IsPublic()
   @Get('/search')
   async findOne(@Query() query: string): Promise<Comments> {
     try {
@@ -39,7 +41,6 @@ export class CommentsController {
     }
   }
 
-  @IsPublic()
   @ApiBody({ type: CommentsDtoCreate })
   @Post()
   async createComments(@Body() comments: Comments): Promise<CommentsDtoCreate> {
@@ -54,7 +55,7 @@ export class CommentsController {
   async changecommentsCredentials(
     @Param('id') id: string,
     @Body() commentsUpdate: CommentsDtoUpdate,
-  ) {
+  ): Promise<CommentsDtoUpdate> {
     try {
       return await this.commentsService.updateComments(id, commentsUpdate);
     } catch (error) {

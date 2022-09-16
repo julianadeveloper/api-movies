@@ -1,19 +1,42 @@
-version: '3.6'
+version: "3.7"
 
-services:
+networks:
+  kong-net:
+    name: kong-net
+    driver: bridge
+   
+
+services: 
   movies:
     build: .
     entrypoint: sh ./.docker/entrypoint.sh
-    container_name: api-movies
+    image: juholiveira/kong-service:latest
+    environment:
+      PORT: ":3333"
+      CONTENT: "<h1>Service Movies</h1>"
+    networks:
+      - kong-net
     ports:
-      - 3300:3300
+      - 3333:3333
     restart: always
     volumes:
-      - ./:/home/api-movies
-    tty: true
-    networks:
-      - api-movies
+     - ./:/home/api-movies
 
-networks:
-  api-movies:
-    driver: bridge
+     
+# services:
+#   movies:
+#     build: .
+#     entrypoint: sh ./.docker/entrypoint.sh
+#     container_name: api-movies
+#     ports:
+#       - 3333:3333
+#     restart: always
+#     volumes:
+#       - ./:/home/api-movies
+#     tty: true
+#     networks:
+#       - api-movies
+
+# networks:
+#   api-movies:
+#     driver: bridge

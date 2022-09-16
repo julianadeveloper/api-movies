@@ -6,4 +6,4 @@ WORKDIR /home/api-movies
 
 COPY . .
 
-EXPOSE 3300
+EXPOSE 3333

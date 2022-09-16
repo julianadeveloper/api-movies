@@ -24,7 +24,7 @@ import { MoviesService } from '../services/movies.service';
 export class MoviesController {
   constructor(private readonly moviesSevice: MoviesService) {}
 
-  // @ApiBody({type: ApiBody})
+  @IsPublic()
   @Get()
   async getAllMovies(movies: Movies): Promise<Movies[]> {
     return await this.moviesSevice.getMovies(movies);
