@@ -8,7 +8,9 @@ networks:
 
 services: 
   movies:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     entrypoint: sh ./.docker/entrypoint.sh
     image: juholiveira/kong-service:latest
     environment:
