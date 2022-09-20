@@ -42,7 +42,7 @@ export class MoviesService {
   ): Promise<updateMoviesDto> {
     try {
       const updated = await this.moviesModel
-        .findByIdAndUpdate(id, moviesUpdate)
+        .findByIdAndUpdate(id, moviesUpdate, {new: true})
         .exec();
       console.log(updated);
       return updated;

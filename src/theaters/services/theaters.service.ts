@@ -81,6 +81,7 @@ export class TheatersService {
       const updated = await this.theaterModel.findByIdAndUpdate(
         id,
         TheaterBody,
+        {new: true}
       );
       return updated;
     } catch {

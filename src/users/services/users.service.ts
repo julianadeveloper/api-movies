@@ -34,6 +34,8 @@ export class UsersService {
       email: (email: string) => this.findByEmail(email),
       // phone: (phone: string) => this.findByPhone(phone)
     };
+    console.log(strategies[key[0]],',',(query[key[0]]))
+                  //escolha da funcao  --- //desestruturação da chave que vai constar na query (id ou email)
     return await strategies[key[0]](query[key[0]]);
   }
 
@@ -71,7 +73,7 @@ export class UsersService {
     }
     try {
       const updated = await this.userModel
-        .findByIdAndUpdate(id, userUpdate)
+        .findByIdAndUpdate(id, userUpdate, {new: true})
         .exec();
       console.log(updated);
       return updated;

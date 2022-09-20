@@ -60,7 +60,7 @@ export class CommentsService {
   ): Promise<CommentsDtoUpdate> {
     try {
       const updated = await this.commentsModel
-        .findByIdAndUpdate(id, commentsUpdate)
+        .findByIdAndUpdate(id, commentsUpdate, {new: true})
         .exec();
       console.log(updated);
       return updated;
