@@ -26,19 +26,21 @@ export class MoviesController {
 
   @IsPublic()
   @Get()
-  async getAllMovies(movies: Movies): Promise<Movies[]> {
-    return await this.moviesSevice.getMovies(movies);
+  async getAllMovies(movies: Movies) {
+    return await this.moviesSevice.getMovies(movies, {});
   }
   @ApiQuery({ type: Movies })
-  @Get('/:id')
-  async findOne(@Query('id') id: string): Promise<Movies> {
+  @Get('/search')
+  async findOne(@Query() query) {
     try {
-      const findOne = await this.moviesSevice.findByMovieId(id);
+      console.log(query)
+      const findOne = await this.moviesSevice.findByMovieId(query);
       return findOne;
     } catch {
       throw new HttpException('NOT FOUND', HttpStatus.NOT_FOUND);
     }
   }
+
 
   @IsPublic()
   @ApiBody({ type: MoviesCreateApi })

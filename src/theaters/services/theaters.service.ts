@@ -55,7 +55,7 @@ export class TheatersService {
             spherical: true,
           },
         },
-      ]).limit(5).skip(0);
+      ]).skip(0)
       return agg;
     } catch {
       throw new HttpException(

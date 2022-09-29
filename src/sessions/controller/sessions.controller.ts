@@ -11,9 +11,13 @@ export class SessionsController {
   constructor(private readonly sessionService: SessionsService) {}
   // @ApiBody({type: SessionsEntity})
   @Get()
-  async listSessions(user_id: SessionsEntity): Promise<SessionsEntity[]> {
-    return await this.sessionService.sessionUser(user_id);
+  async listSessions(sessions: SessionsEntity): Promise<SessionsEntity[]> {
+    return await this.sessionService.sessionsUser(sessions);
   }
+  // @Get()
+  // async listSession(user_id: SessionsEntity): Promise<SessionsEntity[]> {
+  //   return await this.sessionService.sessionUser(user_id);
+  // }
   @ApiBody({ type: sessionDto })
   @Post()
   async createSession(

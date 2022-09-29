@@ -10,10 +10,12 @@ export class SessionsService {
     private readonly sessionModel: Model<SessionsEntity>,
   ) {}
 
-  async sessionUser(idSession: SessionsEntity): Promise<SessionsEntity[]> {
-    return await this.sessionModel.find(idSession);
+  async sessionsUser(sessions: SessionsEntity): Promise<SessionsEntity[]> {
+    return await this.sessionModel.find(sessions);
   }
-
+  // async sessionUser(idSession: SessionsEntity): Promise<SessionsEntity[]> {
+  //   return await this.sessionModel.find(idSession);
+  // }
   async creteSessionId(session: SessionsEntity): Promise<SessionsEntity> {
     return await this.sessionModel.create(session);
     //

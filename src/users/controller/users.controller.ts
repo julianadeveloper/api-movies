@@ -4,12 +4,19 @@ import {
   Delete,
   Get,
   HttpException,
-  HttpStatus, Param,
+  HttpStatus,
+  Param,
   Post,
   Put,
-  Query
+  Query,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiProperty, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiProperty,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { createUser } from '../../auth/dto/users/create-user.dto';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { updateUser } from '../../auth/dto/users/update-user.dto';
@@ -21,10 +28,8 @@ import { deleteUser } from '../api-doc/delete-user';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(
-    private readonly userService: UsersService,
-  ) {}
-  
+  constructor(private readonly userService: UsersService) {}
+
   @Get()
   async listUsers(usersList: User): Promise<User[]> {
     try {
@@ -34,7 +39,8 @@ export class UsersController {
       new Error();
     }
   }
-@ApiQuery({type: findUser})
+
+  @ApiQuery({ type: findUser })
   @Get('/search')
   async findOne(@Query() query: any): Promise<User> {
     try {
@@ -44,18 +50,16 @@ export class UsersController {
     }
   }
 
-  @IsPublic()
-@ApiBody({type: createUser})
+  @ApiBody({ type: createUser })
   @Post()
   async createUser(@Body() user: User): Promise<User> {
     try {
       return await this.userService.create(user);
     } catch (error) {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
-
     }
   }
-  @ApiBody({type: updateUser})
+  @ApiBody({ type: updateUser })
   @Put(':id')
   async changeUserCredentials(
     @Param('id') id: string,
@@ -67,15 +71,16 @@ export class UsersController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
-  @ApiProperty({type: deleteUser})
+  @ApiProperty({ type: deleteUser })
   @Delete('/:id')
-  async deleteUser(@Query('id') id: string) {
+
+  async deleteUser(@Query('_id') _id: string) {
+    console.log('controller delete user');
+    console.log(_id, 'controller delete id');
     try {
-      console.log(id);
-      return await this.userService.deleteUser(id);
+      return await this.userService.deleteUser(_id);
     } catch (error) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
   }
-
 }

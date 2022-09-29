@@ -18,25 +18,26 @@ export class CommentsService {
   ) {}
 
   async getComments(comments: Comments): Promise<Comments[]> {
-    return await this.commentsModel.find(comments).limit(10);
+    return await this.commentsModel.find(comments);
   }
 
   async findOne(query: string) {
     const key = Object.keys(query);
-
+    console.log('cheguei aqui no service comments', query)
+    
     if (!key.length) {
       return new Error();
     }
     const strategies = {
       id: (id: string) => this.findById(id),
-      movie_id: (movie_id: string) => this.findByMovieId(movie_id),
+      email: (email: string) => this.findByMovieEmail(email),
     };
     return await strategies[key[0]](query[key[0]]);
   }
 
-  private async findByMovieId(movie_id: string) {
+  private async findByMovieEmail(email: string) {
     try {
-      return await this.commentsModel.find({ movie_id }).limit(10);
+      return await this.commentsModel.find({ email })
     } catch {
       throw new Error();
     }
@@ -71,10 +72,9 @@ export class CommentsService {
 
   async deleteComments(id: string) {
     try {
-      console.log(id)
       await this.commentsModel.findOneAndDelete({ _id: id }).exec();
     } catch (error) {
       throw new NotFoundException(error);
-    }
+    } 
   }
 }

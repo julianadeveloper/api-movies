@@ -4,7 +4,7 @@ import {
   HttpStatus,
   Post,
   Request,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
@@ -18,12 +18,15 @@ import { AuthRequest } from './models/auth-request';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @IsPublic()
   @UseGuards(LocalAuthGuard)
+  @IsPublic()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: loginUserDto })
   async login(@Request() req: AuthRequest) {
+
+
+    console.log('login', req.user)
     return this.authService.login(req.user);
   }
 }

@@ -34,14 +34,15 @@ export class UsersService {
       email: (email: string) => this.findByEmail(email),
       // phone: (phone: string) => this.findByPhone(phone)
     };
-    console.log(strategies[key[0]],',',(query[key[0]]))
+    console.log(strategies[key[0]],',',(query[key[0]]), 'strategy console')
                   //escolha da funcao  --- //desestruturação da chave que vai constar na query (id ou email)
     return await strategies[key[0]](query[key[0]]);
   }
 
   private async findByEmail(email: string) {
     try {
-      return await this.userModel.findOne({ email });
+     const userFind =  await this.userModel.findOne({ email}); 
+     return userFind
     } catch (error) {
       throw new Error();
     }
@@ -67,15 +68,16 @@ export class UsersService {
   }
 
   async updateUser(id: String, userUpdate: updateUser): Promise<updateUser> {
-    const password = userUpdate.password;
-    if (password) {
-     userUpdate.password = await bcrypt.hash(password, 10);
+    if (userUpdate.password) {
+      userUpdate.password =  await bcrypt.hash(userUpdate.password, 10);;
     }
+
     try {
+    
       const updated = await this.userModel
-        .findByIdAndUpdate(id, userUpdate, {new: true})
+        .findByIdAndUpdate(id, userUpdate)
         .exec();
-      console.log(updated);
+      console.log(updated, updated.password, 'aqui no updateuser service');
       return updated;
     } catch (error) {
       throw new NotFoundException();
@@ -84,6 +86,7 @@ export class UsersService {
 
   async deleteUser(id: string) {
     try {
+      console.log(id, 'service')
       await this.userModel.findOneAndDelete({ _id: id }).exec();
     } catch (error) {
       throw new NotFoundException(error);

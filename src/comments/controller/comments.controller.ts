@@ -34,10 +34,11 @@ export class CommentsController {
   @IsPublic()
   @Get('/search')
   async findOne(@Query() query: string): Promise<Comments> {
+    console.log('controller:',query)
     try {
       return await this.commentsService.findOne(query);
-    } catch {
-      throw new Error();
+    } catch (error){
+      throw new Error(error);
     }
   }
 
