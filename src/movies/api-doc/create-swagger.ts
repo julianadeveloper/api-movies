@@ -61,15 +61,16 @@ export class MoviesCreateApi {
       rating: number;
       numReviews: number;
       meter: number;
+    },
+    critic: {
+      rating: number;
+      numReviews: number;
+      meter: number;
     };
     fresh: number;
   };
   @ApiProperty()
-  critic: {
-    rating: number;
-    numReviews: number;
-    meter: number;
-  };
+ 
   @ApiProperty()
   dvd: string;
   @ApiProperty()

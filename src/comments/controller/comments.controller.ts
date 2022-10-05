@@ -26,15 +26,14 @@ export class CommentsController {
 
   @IsPublic()
   @Get()
-  async getComments(comments: Comments): Promise<Comments[]> {
-    return await this.commentsService.getComments(comments);
+  async getComments(@Query()comments: Comments){
+    return await this.commentsService.getComments(comments, {});
   }
 
   @ApiQuery({ type: findComment })
   @IsPublic()
   @Get('/search')
-  async findOne(@Query() query: string): Promise<Comments> {
-    console.log('controller:',query)
+  async findOne(@Query() query){
     try {
       return await this.commentsService.findOne(query);
     } catch (error){

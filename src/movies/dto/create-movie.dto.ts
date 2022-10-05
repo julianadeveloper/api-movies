@@ -37,13 +37,14 @@ export class createMoviesDto {
       numReviews: number;
       meter: number;
     };
+    critic: {
+      rating: number;
+      numReviews: number;
+      meter: number;
+    };
     fresh: number;
   };
-  critic: {
-    rating: number;
-    numReviews: number;
-    meter: number;
-  };
+ 
   dvd: string;
   fresh: number;
   production: string;

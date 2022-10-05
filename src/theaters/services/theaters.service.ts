@@ -1,4 +1,5 @@
 import {
+  ConsoleLogger,
   HttpException,
   HttpStatus,
   Injectable,
@@ -15,13 +16,27 @@ export class TheatersService {
     @InjectModel('Theater') private readonly theaterModel: Model<Theater>,
   ) {}
 
-  async getTheaters(theaterList: Theater): Promise<Theater[]> {
+  async getTheaters(theaters: Theater, pagination){
     try {
-      return await this.theaterModel.find(theaterList);
-    } catch (error) {
-      new error();
+      const limit = pagination.limit || 10;
+      const currentPage = pagination.page || 1;
+      const skip = limit * (currentPage-1);
+      const total = await this.theaterModel.countDocuments(theaters);
+      const qtdPages = Math.floor(total / pagination.limit) + 1;
+      const content = await this.theaterModel.find(theaters).limit(limit).skip(skip);
+
+      console.log(pagination)
+      return {
+        content,
+        numberOfElements: total,
+        pagesTotal: qtdPages,
+        page: pagination.page || 1
+      }
+    } catch {
+      new Error('Bad Request');
     }
-  }
+    } 
+  
   async findOne(query: any) {
     const key = Object.keys(query);
     if (!key.length) {
@@ -41,6 +56,7 @@ export class TheatersService {
   async findFieldsLocation(
     latitude: number,
     longitude: number,
+    distance: number,
   ): Promise<Theater[]> {
     try {
       const agg = await this.theaterModel.aggregate([
@@ -51,11 +67,12 @@ export class TheatersService {
               coordinates: [latitude, longitude],
             },
             distanceField: 'Distance',
-            maxDistance: 1000,
+            maxDistance: distance,
             spherical: true,
           },
         },
-      ]).skip(0)
+      ])
+      console.log(latitude, longitude)
       return agg;
     } catch {
       throw new HttpException(

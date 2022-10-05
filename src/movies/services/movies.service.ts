@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, NullExpression } from 'mongoose';
+import { Model } from 'mongoose';
 import { createMoviesDto } from '../dto/create-movie.dto';
 import { updateMoviesDto } from '../dto/update-movie.dto';
 import { Movies } from '../entitys/movies-entity';
@@ -17,9 +17,16 @@ export class MoviesService {
   ) {}
   async getMovies(movies: Movies, pagination) {
     try {
+      const limit = pagination.limit || 10;
+      const currentPage = pagination.page || 1;
+      const skip = limit * (currentPage-1);
+
       const total = await this.moviesModel.countDocuments(movies);
       const qtdPages =  Math.floor(total / pagination.limit) + 1;
-      const content = await this.moviesModel.find(movies).limit(pagination.limit || 10).skip(pagination.limit*pagination.page || 1);
+
+
+      const content = await this.moviesModel.find(movies).limit(limit).skip(skip);
+
       return {
         content,
         numberOfElements: total,
@@ -27,7 +34,7 @@ export class MoviesService {
         page: pagination.page || 1
       }
     } catch {
-      new Error();
+      new Error('Bad Request');
     }
   }
   ///////////finds movies///////////////////
@@ -58,7 +65,6 @@ export class MoviesService {
     const queryMongo = {
       [type]: {$regex: query.search || '', $options: 'i'}
     } as unknown as Movies
-
     return this.getMovies(queryMongo, {page: query.page || 1, limit: query.limit || 10})
     // const strategy = strategies[query.type] || strategies.title;
     // return strategy(query.search);
@@ -67,25 +73,25 @@ export class MoviesService {
     // return await strategies[key[0]](query[key[0]]);
   }
 
-  private async findById(id: string) {
-    return await this.moviesModel.findById(id).limit(10).skip(2)  ;
-  }
-  private async findByTitle(title: string) {
-    return await this.moviesModel.find({ title }).limit(10).skip(2);
-  }
-  private async findByGenre(genres: string) {
-    return await this.moviesModel.find({ genres }).limit(10).skip(2);
-  }
-  private async findByYear(year: number) {
-    return await this.moviesModel.find({ year }).limit(10).skip(2);
-  }
-  private async findByType(type: string) {
-    return await this.moviesModel.find({ type }).limit(10).skip(2);
-  }
+  // private async findById(id: string) {
+  //   return await this.moviesModel.findById(id).limit(10).skip(2)  ;
+  // }
+  // private async findByTitle(title: string) {
+  //   return await this.moviesModel.find({ title }).limit(10).skip(2);
+  // }
+  // private async findByGenre(genres: string) {
+  //   return await this.moviesModel.find({ genres }).limit(10).skip(2);
+  // }
+  // private async findByYear(year: number) {
+  //   return await this.moviesModel.find({ year }).limit(10).skip(2);
+  // }
+  // private async findByType(type: string) {
+  //   return await this.moviesModel.find({ type }).limit(10).skip(2);
+  // }
 
-  private async findByDirector(director: string) {
-    return await this.moviesModel.find({ director }).limit(10).skip(2);
-  }
+  // private async findByDirector(director: string) {
+  //   return await this.moviesModel.find({ director }).limit(10).skip(2);
+  // }
   ///////////////////////////////////////////////////////////////////////
 
   //create - movies

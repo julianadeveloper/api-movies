@@ -5,4 +5,4 @@ npm install
 
 npm install -g @nestjs/cli
 
-npm run start
+npm run start:dev

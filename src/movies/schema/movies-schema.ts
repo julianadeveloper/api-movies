@@ -50,13 +50,13 @@ export const MoviesSchema = new mongoose.Schema({
       numReviews: Number,
       meter: Number,
     },
+    critic: {
+      rating: Number,
+      numReviews: Number,
+      meter: Number,
+    },
     fresh: Number,
 
-  },
-  critic: {
-    rating: Number,
-    numReviews: Number,
-    meter: Number,
   },
   dvd: Date,
   fresh: Number,

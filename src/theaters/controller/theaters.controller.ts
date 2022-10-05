@@ -27,12 +27,9 @@ export class TheatersController {
 
   // @ApiBody({type: [Theater]})
   @Get()
-  async listTheaters(thetater: Theater): Promise<Theater[]> {
-    try {
-      return await this.theatersService.getTheaters(thetater);
-    } catch {
-      new Error();
-    }
+  async listTheaters(@Query()query, theaters: Theater){
+      return await this.theatersService.getTheaters(theaters, query);
+
   }
   @ApiQuery({type: findTheater})
   @Get('/:id')
@@ -50,7 +47,8 @@ export class TheatersController {
       const result = await this.theatersService.findFieldsLocation(
         data.latitude,
         data.longitude,
-      );
+        data.distance,
+        );
       return result;
     } catch {
       throw new HttpException(

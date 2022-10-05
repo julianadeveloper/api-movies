@@ -69,12 +69,11 @@ export class UsersService {
 
   async updateUser(id: String, userUpdate: updateUser): Promise<updateUser> {
     if (userUpdate.password) {
-      userUpdate.password =  await bcrypt.hash(userUpdate.password, 10);;
+      userUpdate.password =  await bcrypt.hash(userUpdate.password, 10);
     }
 
     try {
-    
-      const updated = await this.userModel
+        const updated = await this.userModel
         .findByIdAndUpdate(id, userUpdate)
         .exec();
       console.log(updated, updated.password, 'aqui no updateuser service');
