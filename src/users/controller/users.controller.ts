@@ -73,10 +73,7 @@ export class UsersController {
   }
   @ApiProperty({ type: deleteUser })
   @Delete('/:id')
-
   async deleteUser(@Query('_id') _id: string) {
-    console.log('controller delete user');
-    console.log(_id, 'controller delete id');
     try {
       return await this.userService.deleteUser(_id);
     } catch (error) {

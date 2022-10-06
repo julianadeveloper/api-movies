@@ -39,26 +39,6 @@ export class MoviesService {
   }
   ///////////finds movies///////////////////
   async findByMovieId(query: { search: string, type: string, page: number, limit: number}){
-    // const key = Object.keys(query);
-
-    // if (!key.length) {
-    //   return
-    // }
-    // {
-    //   type: 'genres',
-    //   search: 'drama'
-    // }
-    // const strategies = {
-    //   id: (id: string) => this.findById(id),
-    //   // email: (email: string) => this.findByEmail(email),
-    //   title: (title: string) => this.findByTitle(title),
-    //   genres: (genres: string) => this.findByGenre(genres),
-    //   year: (year: number) => this.findByYear(year),
-    //   type: (type: string) => this.findByType(type),
-    //   director: (director: string) => this.findByDirector(director),
-
-    //   // phone: (phone: string) => this.findByPhone(phone)
-    // };
 
     const type = query.type || 'title'
 
@@ -66,33 +46,8 @@ export class MoviesService {
       [type]: {$regex: query.search || '', $options: 'i'}
     } as unknown as Movies
     return this.getMovies(queryMongo, {page: query.page || 1, limit: query.limit || 10})
-    // const strategy = strategies[query.type] || strategies.title;
-    // return strategy(query.search);
-    // console.log(strategies[], ',', query[key[0]], 'strategy console');
-    //escolha da funcao  --- //desestruturação da chave que vai constar na query (id ou email)
-    // return await strategies[key[0]](query[key[0]]);
+  
   }
-
-  // private async findById(id: string) {
-  //   return await this.moviesModel.findById(id).limit(10).skip(2)  ;
-  // }
-  // private async findByTitle(title: string) {
-  //   return await this.moviesModel.find({ title }).limit(10).skip(2);
-  // }
-  // private async findByGenre(genres: string) {
-  //   return await this.moviesModel.find({ genres }).limit(10).skip(2);
-  // }
-  // private async findByYear(year: number) {
-  //   return await this.moviesModel.find({ year }).limit(10).skip(2);
-  // }
-  // private async findByType(type: string) {
-  //   return await this.moviesModel.find({ type }).limit(10).skip(2);
-  // }
-
-  // private async findByDirector(director: string) {
-  //   return await this.moviesModel.find({ director }).limit(10).skip(2);
-  // }
-  ///////////////////////////////////////////////////////////////////////
 
   //create - movies
   async createMovie(movies: createMoviesDto) {

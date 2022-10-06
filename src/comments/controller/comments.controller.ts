@@ -35,6 +35,7 @@ export class CommentsController {
   @Get('/search')
   async findOne(@Query() query){
     try {
+      console.log(query)
       return await this.commentsService.findOne(query);
     } catch (error){
       throw new Error(error);

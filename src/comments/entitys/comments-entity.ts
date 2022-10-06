@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class Comments {
-
+  
   @ApiProperty()
   name: string;
   email: string;
