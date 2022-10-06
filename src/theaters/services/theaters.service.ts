@@ -1,5 +1,4 @@
 import {
-  ConsoleLogger,
   HttpException,
   HttpStatus,
   Injectable,
@@ -18,14 +17,14 @@ export class TheatersService {
 
   async getTheaters(theaters: Theater, pagination){
     try {
+
+console.log('agora aqui')
       const limit = pagination.limit || 10;
       const currentPage = pagination.page || 1;
       const skip = limit * (currentPage-1);
       const total = await this.theaterModel.countDocuments(theaters);
       const qtdPages = Math.floor(total / pagination.limit) + 1;
-      const content = await this.theaterModel.find(theaters).limit(limit).skip(skip);
-
-      console.log(pagination)
+      const content = await this.theaterModel.find(theaters).limit(limit).skip(skip)
       return {
         content,
         numberOfElements: total,
@@ -37,19 +36,17 @@ export class TheatersService {
     }
     } 
   
-  async findOne(query: any) {
-    const key = Object.keys(query);
-    if (!key.length) {
-      return new Error();
-    }
-    const strategies = {
-      id: (id: string) => this.findById(id),
-    };
-    return await strategies[key[0]](query[key[0]]);
-  }
-  private async findById(id: string) {
-    return await this.theaterModel.findById(id);
-  }
+
+    
+    async findOne(query: {search: string, page: number, limit: number}) {
+      console.log('cheguei aqui no findone')
+      const queryMongo = {
+        'location.address.street1': {$regex: query.search || '', $options: 'i'}
+      } as unknown as Theater;
+      console.log('query', queryMongo)
+        return this.getTheaters(queryMongo, {page: query.page || 1, limit: query.limit || 10})
+  
+      }
   //implementar a rota que busque pela localização - range
 
   ///**Metodo Capturar campos */
@@ -107,11 +104,11 @@ export class TheatersService {
   }
   async deleteTheater(id: string) {
     try {
-      console.log(id);
       await this.theaterModel.findOneAndDelete({ _id: id }).exec();
     } catch (error) {
       throw new NotFoundException(error);
     }
+  }
   }
   // async buscarproximos(logintude: Theater, latitude: Theater) {
   //   const obj = [
@@ -132,4 +129,4 @@ export class TheatersService {
   //   // const find = await this.theaterModel.findById(id);
   //   // const agg = await (await this.theaterModel.aggregate())
   // }
-}
+

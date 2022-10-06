@@ -28,12 +28,14 @@ export class TheatersController {
   // @ApiBody({type: [Theater]})
   @Get()
   async listTheaters(@Query()query, theaters: Theater){
+    console.log(query)
       return await this.theatersService.getTheaters(theaters, query);
 
   }
   @ApiQuery({type: findTheater})
-  @Get('/:id')
-  async findOne(@Query() query: any): Promise<Theater> {
+  @Get('/search')
+  async findOne(@Query() query){
+
     try {
       return await this.theatersService.findOne(query);
     } catch (error) {
@@ -82,10 +84,9 @@ export class TheatersController {
   }
   @ApiBody({type: DeleteTheater})
   @Delete('/:id')
-  async deleteTheaters(@Param('id') id: string) {
+  async deleteUser(@Query('_id') _id: string) {
     try {
-      console.log(id);
-      return await this.theatersService.deleteTheater(id);
+      return await this.theatersService.deleteTheater(_id);
     } catch (error) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
