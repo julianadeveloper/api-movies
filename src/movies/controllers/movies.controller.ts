@@ -42,6 +42,12 @@ export class MoviesController {
   }
 
 
+  @Get('/search/series')
+  async findSeries(@Query() querySeries){
+    const findSerie = await this.moviesSevice.findByMovieId(querySeries, 'series')
+    return findSerie;
+  }
+
   @IsPublic()
   @ApiBody({ type: MoviesCreateApi })
   @Post()

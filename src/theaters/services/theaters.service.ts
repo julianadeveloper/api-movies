@@ -18,7 +18,6 @@ export class TheatersService {
   async getTheaters(theaters: Theater, pagination){
     try {
 
-console.log('agora aqui')
       const limit = pagination.limit || 10;
       const currentPage = pagination.page || 1;
       const skip = limit * (currentPage-1);
@@ -39,11 +38,9 @@ console.log('agora aqui')
 
     
     async findOne(query: {search: string, page: number, limit: number}) {
-      console.log('cheguei aqui no findone')
       const queryMongo = {
         'location.address.street1': {$regex: query.search || '', $options: 'i'}
       } as unknown as Theater;
-      console.log('query', queryMongo)
         return this.getTheaters(queryMongo, {page: query.page || 1, limit: query.limit || 10})
   
       }
@@ -51,26 +48,25 @@ console.log('agora aqui')
 
   ///**Metodo Capturar campos */
   async findFieldsLocation(
-    latitude: number,
-    longitude: number,
-    distance: number,
-  ): Promise<Theater[]> {
+data: Theater
+  ) {
+    console.log('cheguei no service', data)
     try {
       const agg = await this.theaterModel.aggregate([
         {
           $geoNear: {
             near: {
               type: 'Point',
-              coordinates: [latitude, longitude],
+              coordinates: [data.location.geo.coordinates[0], data.location.geo.coordinates[1]],
             },
             distanceField: 'Distance',
-            maxDistance: distance,
+            minDistance: 0,
+            maxDistance: 1000,
             spherical: true,
           },
         },
       ])
-      console.log(latitude, longitude)
-      return agg;
+        return agg;
     } catch {
       throw new HttpException(
         'FORBIDDEN - Possivelmente não há teatro proximo',

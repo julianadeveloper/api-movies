@@ -10,7 +10,7 @@ export class createMoviesDto {
 
   fullplot: string;
   languages: [string];
-  released: string;
+  released: Date;
   directors: [string];
   rated: string;
   awards: {

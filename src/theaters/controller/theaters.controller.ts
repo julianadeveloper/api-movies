@@ -8,7 +8,7 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from '../../auth/decorators/is-public-decorators';
@@ -27,15 +27,13 @@ export class TheatersController {
 
   // @ApiBody({type: [Theater]})
   @Get()
-  async listTheaters(@Query()query, theaters: Theater){
-    console.log(query)
-      return await this.theatersService.getTheaters(theaters, query);
-
+  async listTheaters(@Query() query, theaters: Theater) {
+    console.log(query);
+    return await this.theatersService.getTheaters(theaters, query);
   }
-  @ApiQuery({type: findTheater})
+  @ApiQuery({ type: findTheater })
   @Get('/search')
-  async findOne(@Query() query){
-
+  async findOne(@Query() query) {
     try {
       return await this.theatersService.findOne(query);
     } catch (error) {
@@ -44,13 +42,10 @@ export class TheatersController {
   }
   @ApiQuery({ type: TheaterDistance })
   @Post('/distance')
-  async findLocation(@Body() data: any): Promise<Theater[]> {
+  async findLocation(@Body() data: Theater) {
+    console.log(data, 'controller')
     try {
-      const result = await this.theatersService.findFieldsLocation(
-        data.latitude,
-        data.longitude,
-        data.distance,
-        );
+      const result = await this.theatersService.findFieldsLocation(data);
       return result;
     } catch {
       throw new HttpException(
@@ -61,7 +56,7 @@ export class TheatersController {
   }
 
   @IsPublic()
-@ApiBody({type: Theater})
+  @ApiBody({ type: Theater })
   @Post()
   async createTheaters(@Body() teather: Theater): Promise<Theater> {
     try {
@@ -70,7 +65,7 @@ export class TheatersController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
   }
-@ApiBody({type: updateTheater})
+  @ApiBody({ type: updateTheater })
   @Put(':id')
   async updateTheaters(
     @Param('id') id: string,
@@ -82,7 +77,7 @@ export class TheatersController {
       throw new HttpException('FORBIDDEN', HttpStatus.NOT_FOUND);
     }
   }
-  @ApiBody({type: DeleteTheater})
+  @ApiBody({ type: DeleteTheater })
   @Delete('/:id')
   async deleteUser(@Query('_id') _id: string) {
     try {

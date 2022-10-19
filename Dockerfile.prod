@@ -16,4 +16,4 @@ ENTRYPOINT [ "npm", "run", "start" ]
 
 USER node
 
-EXPOSE 3300
+EXPOSE 3333

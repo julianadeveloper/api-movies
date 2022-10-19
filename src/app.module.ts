@@ -22,7 +22,6 @@ import { UsersModule } from './users/modules/users.module';
     TheatersModule,
     MoviesModule,
     SessionsModule,
-    SessionsModule,
     AuthModule,
   ],
   controllers: [AppController],

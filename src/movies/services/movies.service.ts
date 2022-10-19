@@ -19,39 +19,60 @@ export class MoviesService {
     try {
       const limit = pagination.limit || 10;
       const currentPage = pagination.page || 1;
-      const skip = limit * (currentPage-1);
+      const skip = limit * (currentPage - 1);
 
       const total = await this.moviesModel.countDocuments(movies);
-      const qtdPages =  Math.floor(total / pagination.limit) + 1;
+      const qtdPages = Math.floor(total / pagination.limit) + 1;
 
-
-      const content = await this.moviesModel.find(movies).limit(limit).skip(skip);
+      const content = await this.moviesModel
+        .find(movies)
+        .limit(limit)
+        .skip(skip);
 
       return {
         content,
         numberOfElements: total,
         pagesTotal: qtdPages,
-        page: pagination.page || 1
-      }
+        page: pagination.page || 1,
+      };
     } catch {
       new Error('Bad Request');
     }
   }
   ///////////finds movies///////////////////
-  async findByMovieId(query: { search: string, type: string, page: number, limit: number}){
+  async findByMovieId(
+    query: {
+      search: string | number;
+      field: string;
+      page: number;
+      limit: number;
+    },
+    type: string = 'movie',
+  ) {
+    try {
+      const field = query.field || 'title';
 
-    const type = query.type || 'title'
+      const queryMongo = {
+        type,
+        [field]:
+          field === 'year'
+            ? Number(query.search)
+            : { $regex: query.search || '', $options: 'i' },
+      } as unknown as Movies;
 
-    const queryMongo = {
-      [type]: {$regex: query.search || '', $options: 'i'}
-    } as unknown as Movies
-    return this.getMovies(queryMongo, {page: query.page || 1, limit: query.limit || 10})
-  
+      return this.getMovies(queryMongo, {
+        page: query.page || 1,
+        limit: query.limit || 10,
+      });
+    } catch {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
   }
 
   //create - movies
   async createMovie(movies: createMoviesDto) {
     const moviesCreate = await this.moviesModel.create(movies);
+    console.log(movies);
     try {
       return moviesCreate;
     } catch {

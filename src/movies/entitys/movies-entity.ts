@@ -11,7 +11,7 @@ export class Movies {
   title: string;
   fullplot: string;
   languages: [string];
-  released: string;
+  released: Date;
   directors: [string];
   rated: string;
   awards: {
@@ -50,7 +50,7 @@ export class Movies {
   fresh: number;
   production: string;
   rotten: number;
-  lastupdate: string;
+  lastupdate: Date;
   website: string;
   writers: [string];
 
