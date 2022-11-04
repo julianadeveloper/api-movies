@@ -86,7 +86,7 @@ data: Theater
   async updateTheater(
     id: string,
     TheaterBody: updateTheater,
-  ): Promise<updateTheater> {
+  ){
     try {
       const updated = await this.theaterModel.findByIdAndUpdate(
         id,

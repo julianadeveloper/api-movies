@@ -18,7 +18,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { createUser } from '../../auth/dto/users/create-user.dto';
-import { IsPublic } from '../../auth/decorators/is-public-decorators';
 import { updateUser } from '../../auth/dto/users/update-user.dto';
 import { findUser } from '../api-doc/find-user';
 import { User } from '../entitys/user';

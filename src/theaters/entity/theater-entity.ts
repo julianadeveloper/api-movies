@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmptyObject } from "class-validator";
 
 export class Theater {
   @ApiProperty()
@@ -12,15 +13,8 @@ export class Theater {
       zipcode: string;
     },
     geo: {
-      type: {
-        type: [String];
-        enum: ['Point'];
-        required: true;
-      },
-      coordinates: {
-        type: [Number];
-        required: true;
-      }
-    }
+      type: string;
+      coordinates: number[];
+    };
   };
 }

@@ -49,7 +49,7 @@ export class createMoviesDto {
   fresh: number;
   production: string;
   rotten: number;
-  lastupdate: string;
+  lastupdate: Date;
   website: string;
   writers: [string];
 

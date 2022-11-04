@@ -23,7 +23,7 @@ export const MoviesSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-  realeased: Date,
+  released: Date,
   directors: {
     type: [String],
     required: true,

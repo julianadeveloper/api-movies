@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmptyObject } from 'class-validator';
 export class updateTheater {
   @ApiProperty({example: "Dados com endereço e coordenadas", description: "Propriedades para atualizar"})
+  @IsNotEmptyObject()
   location: {
     address: {
       street1: string;

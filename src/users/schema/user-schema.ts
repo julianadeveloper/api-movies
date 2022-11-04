@@ -6,6 +6,7 @@ export const UserSchema = new moongose.Schema({
   name: String,
   email: String,
   password: String,
+  role: String,
 });
 
 export type UserDocument = User & mongoose.Document;

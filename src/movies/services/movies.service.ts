@@ -76,7 +76,7 @@ export class MoviesService {
     try {
       return moviesCreate;
     } catch {
-      throw new HttpException('Erro ao criar comentário', HttpStatus.FORBIDDEN);
+      throw new HttpException('Erro ao criar comentário', HttpStatus.CONFLICT);
     }
   }
 
